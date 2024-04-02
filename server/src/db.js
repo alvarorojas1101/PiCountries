@@ -42,12 +42,14 @@ Country.belongsToMany(Activity, {
   through: "CountryActivity",
   foreignKey: "countryId",
   otherKey: "activityId",
+  as: "countryActivities",
 });
 
 Activity.belongsToMany(Country, {
   through: "CountryActivity",
   foreignKey: "activityId",
   otherKey: "countryId",
+  as: "activityCountries",
 });
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
