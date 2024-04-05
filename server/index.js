@@ -2,7 +2,7 @@ const server = require("./src/server.js");
 const { conn } = require("./src/db.js");
 require("dotenv").config();
 const { PORT } = process.env;
-const { saveCountries } = require("./src/utils/saveCountries.js");
+const { saveCountries } = require("./src/controllers/saveCountries.js");
 
 conn
   .sync({ force: true })

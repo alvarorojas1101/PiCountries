@@ -18,10 +18,10 @@ exports.getCountryById = async (req, res) => {
     });
     // Verifica si el país existe
     if (!country) {
-      return res.status(404).json({ error: "Country not found" }); // corregí "starus" por "status"
+      return res.status(404).json({ error: "Country not found" });
     }
     // Envía el país y sus actividades asociadas como respuesta
-    res.json(country);
+    res.status(200).json(country);
   } catch (error) {
     res.status(500).json({ error: "Error fetching country" });
   }
