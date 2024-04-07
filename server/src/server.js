@@ -6,6 +6,7 @@ const cors = require("cors");
 const server = express();
 
 server.use(morgan("dev"));
+//middlewate para leer el req.body
 server.use(express.json());
 server.use(cors());
 
