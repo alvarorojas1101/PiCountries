@@ -1,0 +1,29 @@
+.Welcome {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.textWelcome {
+  font-size: 47px;
+  margin-bottom: 10px;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: -1px 4px 3px rgba(37, 19, 16, 26.5);
+}
+
+.buttonWelcome {
+  margin-top: 20px;
+  padding: 40px;
+}
+
+.btn {
+  background-color: #5f616d;
+  color: #ffffff;
+}
+
+.btn:hover {
+  background-color: #0a0b23;
+}
