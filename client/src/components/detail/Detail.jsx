@@ -1,8 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
-function Detail() {
-  // Tu código aquí
-  return <div>Detalle</div>;
-}
+const Detail = () => {
+  const { id } = useParams();
+  const [country, setCountry] = useState({});
 
-export default Detail; // Asegúrate de que esta línea esté presente
+  useEffect(() => {
+    const fetchCountry = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/countries/${id}`
+        );
+        setCountry(response.data);
+      } catch (error) {
+        console.error("Error fetching country details:", error);
+      }
+    };
+    fetchCountry();
+  }, [id]);
+
+  return (
+    <div>
+      <h1>{country.name}</h1>
+      <img src={country.flagImage} alt="Country Flag" />
+      <p>Continent: {country.continents}</p>
+      <p>Capital: {country.capital}</p>
+      <p>Subregion: {country.subregion}</p>
+      <p>Area: {country.area}</p>
+      <p>Population: {country.population}</p>
+    </div>
+  );
+};
+
+export default Detail;

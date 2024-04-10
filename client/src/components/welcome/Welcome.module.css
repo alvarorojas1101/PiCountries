@@ -17,6 +17,8 @@
 .buttonWelcome {
   margin-top: 20px;
   padding: 40px;
+  opacity: 0; /* Inicialmente, el texto estará oculto */
+  animation: fadeIn 1s ease-in-out forwards; /* Animación de desvanecimiento */
 }
 
 .btn {
@@ -26,4 +28,13 @@
 
 .btn:hover {
   background-color: #0a0b23;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

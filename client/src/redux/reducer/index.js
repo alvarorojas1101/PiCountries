@@ -1,94 +1,34 @@
-import {
-  SORT_ALPHABETICALLY,
-  FILTER_BY_CONTINENT,
-  GET_COUNTRIES,
-  SORT_BY_POPULATION,
-  SET_TOTAL_PAGES,
-  SET_CURRENT_PAGE,
-  POST_ACTIVITY,
-  GET_ACTIVITIES,
-} from "../actions/types";
+// Importación de constantes de tipos de acciones desde un archivo externo
+import { SEARCH_COUNTRIES_BY_NAME, FETCH_COUNTRIES } from "../actions/types";
 
+// Estado inicial de la aplicación
 const initialState = {
-  countries: [],
-  filteredCountries: [],
-  currentPage: 1,
-  totalPages: 0,
-  activities: [],
+  countries: [], // Lista de países
+  filteredCountries: [], // Lista de países filtrados
+  currentPage: 1, // Página actual de la lista de países
+  totalPages: 0, // Número total de páginas de la lista de países
+  activities: [], // Lista de actividades
 };
 
+// Reductor que actualiza el estado de la aplicación en función de las acciones
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_COUNTRIES:
+    case SEARCH_COUNTRIES_BY_NAME:
+      // Actualizar la lista de países filtrados con los resultados de la búsqueda
+      return {
+        ...state,
+        filteredCountries: action.payload, // Asume que action.payload contiene los resultados de la búsqueda
+      };
+
+    case FETCH_COUNTRIES:
       return {
         ...state,
         countries: action.payload,
-        filteredCountries: action.payload,
-      };
-    case SET_TOTAL_PAGES:
-      return {
-        ...state,
-        totalPages: action.payload,
-      };
-    case SET_CURRENT_PAGE:
-      return {
-        ...state,
-        currentPage: action.payload,
-      };
-    case FILTER_BY_CONTINENT:
-      const filterCountries = state.countries.filter(
-        (country) => country.continent === action.payload
-      );
-      return {
-        ...state,
-        filteredCountries:
-          action.payload === "none" ? [...state.countries] : filterCountries,
-      };
-    case SORT_ALPHABETICALLY:
-      if (action.payload === "") {
-        return {
-          ...state,
-          filteredCountries: [...state.countries],
-        };
-      } else {
-        return {
-          ...state,
-          filteredCountries: [...state.filteredCountries].sort((a, b) =>
-            action.payload === "A"
-              ? a.name.localeCompare(b.name)
-              : b.name.localeCompare(a.name)
-          ),
-        };
-      }
-    case SORT_BY_POPULATION:
-      if (action.payload === "") {
-        return {
-          ...state,
-          filteredCountries: [...state.countries],
-        };
-      } else {
-        return {
-          ...state,
-          filteredCountries: [...state.filteredCountries].sort((a, b) =>
-            action.payload === "populationA"
-              ? b.population - a.population
-              : a.population - b.population
-          ),
-        };
-      }
-    case POST_ACTIVITY:
-      return {
-        ...state,
-        activities: action.payload,
-      };
-    case GET_ACTIVITIES:
-      return {
-        ...state,
-        activities: action.payload,
       };
     default:
       return state;
   }
 };
 
+// Exportar el reductor
 export default reducer;
