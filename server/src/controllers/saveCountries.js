@@ -12,7 +12,7 @@ async function saveCountries() {
         // Transforma los datos aquí
         const saveCountry = {
           id: country.ccn3, // Utiliza ccn3 como identificador único
-          name: country.name.official,
+          name: country.name.common,
           flagImage: country.flags.png,
           continents: Array.isArray(country.continents)
             ? country.continents[0]

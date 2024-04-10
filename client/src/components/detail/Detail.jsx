@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchCountriesById } from "../../redux/actions/index";
 
 const Detail = () => {
   const { id } = useParams();
-  const [country, setCountry] = useState({});
+  const dispatch = useDispatch();
+  const country = useSelector((state) => state.currentCountry);
 
   useEffect(() => {
     const fetchCountry = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3001/countries/${id}`
-        );
-        setCountry(response.data);
+        await dispatch(fetchCountriesById(id)); // Llama a la acción fetchCountriesById con el ID del país
       } catch (error) {
         console.error("Error fetching country details:", error);
       }
     };
     fetchCountry();
-  }, [id]);
+  }, [dispatch, id]);
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { searchCountriesByName } from "../../redux/actions/index"; // Asegúrate de importar la acción correcta
+import { searchCountriesByName, clearSearch } from "../../redux/actions/index";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -9,6 +9,9 @@ const SearchBar = () => {
   const handleSearch = () => {
     if (searchTerm.trim() !== "") {
       dispatch(searchCountriesByName(searchTerm));
+    } else {
+      // Limpia la búsqueda cuando el campo de entrada está vacío
+      dispatch(clearSearch());
     }
   };
 
@@ -18,7 +21,10 @@ const SearchBar = () => {
         type="text"
         placeholder="Buscar país por nombre"
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={(e) => {
+          setSearchTerm(e.target.value);
+          handleSearch(); // Asegúrate de llamar a handleSearch aquí
+        }}
       />
       <button onClick={handleSearch}>Buscar</button>
     </div>
