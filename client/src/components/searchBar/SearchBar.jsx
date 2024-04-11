@@ -14,6 +14,10 @@ const SearchBar = () => {
       dispatch(clearSearch());
     }
   };
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+    handleSearch();
+  };
 
   return (
     <div>
@@ -21,10 +25,7 @@ const SearchBar = () => {
         type="text"
         placeholder="Buscar país por nombre"
         value={searchTerm}
-        onChange={(e) => {
-          setSearchTerm(e.target.value);
-          handleSearch(); // Asegúrate de llamar a handleSearch aquí
-        }}
+        onChange={handleChange}
       />
       <button onClick={handleSearch}>Buscar</button>
     </div>

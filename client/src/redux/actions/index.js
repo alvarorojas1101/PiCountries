@@ -1,5 +1,6 @@
 import axios from "axios";
 
+//buscar nombre
 export const searchCountriesByName = (name) => {
   return async (dispatch) => {
     try {
@@ -13,6 +14,7 @@ export const searchCountriesByName = (name) => {
   };
 };
 
+//traer todas
 export const fetchCountries = () => {
   return async (dispatch) => {
     try {
@@ -24,6 +26,7 @@ export const fetchCountries = () => {
   };
 };
 
+//id
 export const fetchCountriesById = (id) => {
   return async (dispatch) => {
     try {
@@ -35,8 +38,27 @@ export const fetchCountriesById = (id) => {
   };
 };
 
+//borrar el buscador
 export const clearSearch = () => {
   return {
     type: "CLEAR_SEARCH",
   };
 };
+
+//continente
+export const filterByContinent = (continent) => ({
+  type: "FILTER_BY_CONTINENT",
+  payload: continent,
+});
+
+// ordenar paises alfab
+export const sortCountries = (sortType) => ({
+  type: "SORT_COUNTRIES",
+  payload: sortType,
+});
+
+//ordenar por poblacion
+export const sortCountriesByPopulation = (sortType) => ({
+  type: "SORT_COUNTRIES_BY_POPULATION",
+  payload: sortType,
+});

@@ -1,10 +1,12 @@
 // Importación de constantes de tipos de acciones desde un archivo externo
-import { fetchCountriesById } from "../actions";
 import {
   SEARCH_COUNTRIES_BY_NAME,
   FETCH_COUNTRIES,
   FETCH_COUNTRIES_BY_ID,
   CLEAR_SEARCH,
+  FILTER_BY_CONTINENT,
+  SORT_COUNTRIES,
+  SORT_COUNTRIES_BY_POPULATION,
 } from "../actions/types";
 
 // Estado inicial de la aplicación
@@ -12,25 +14,24 @@ const initialState = {
   countries: [], // Lista de países
   filteredCountries: [], // Lista de países filtrados
   currentCountry: [],
-  currentPage: 1, // Página actual de la lista de países
-  totalPages: 0, // Número total de páginas de la lista de países
-  activities: [], // Lista de actividades
 };
 
-// Reductor que actualiza el estado de la aplicación en función de las acciones
+// En reducer/index.js
 const reducer = (state = initialState, action) => {
+  let sortedCountries = [...state.countries]; // Mover la declaración aquí
+
   switch (action.type) {
     case SEARCH_COUNTRIES_BY_NAME:
-      // Actualizar la lista de países filtrados con los resultados de la búsqueda
       return {
         ...state,
-        filteredCountries: action.payload, // Asume que action.payload contiene los resultados de la búsqueda
+        filteredCountries: action.payload,
       };
 
     case FETCH_COUNTRIES:
       return {
         ...state,
         countries: action.payload,
+        filteredCountries: action.payload, // Asegurarse de que filteredCountries se actualice
       };
 
     case FETCH_COUNTRIES_BY_ID:
@@ -44,10 +45,42 @@ const reducer = (state = initialState, action) => {
         ...state,
         filteredCountries: [],
       };
+
+    case FILTER_BY_CONTINENT:
+      return {
+        ...state,
+        filteredCountries: state.countries.filter(
+          (country) => country.continents === action.payload
+        ),
+      };
+
+    case SORT_COUNTRIES:
+      if (action.payload === "alphabetical") {
+        sortedCountries.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (action.payload === "reverseAlphabetical") {
+        sortedCountries.sort((a, b) => b.name.localeCompare(a.name));
+      }
+      return {
+        ...state,
+        countries: sortedCountries,
+        filteredCountries: sortedCountries, // Actualizar filteredCountries
+      };
+
+    case SORT_COUNTRIES_BY_POPULATION:
+      if (action.payload === "population") {
+        sortedCountries.sort((a, b) => b.population - a.population);
+      } else if (action.payload === "reversePopulation") {
+        sortedCountries.sort((a, b) => a.population - b.population);
+      }
+      return {
+        ...state,
+        countries: sortedCountries,
+        filteredCountries: sortedCountries, // Actualizar filteredCountries
+      };
+
     default:
       return state;
   }
 };
 
-// Exportar el reductor
 export default reducer;

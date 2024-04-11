@@ -13,7 +13,7 @@ function Welcome() {
         de datos de 250 naciones!
       </h2>
       <div className={styles.buttonWelcome}>
-        <Link to="/countries">
+        <Link to="/home">
           <button className={styles.btn}>Ingresar</button>
         </Link>
       </div>

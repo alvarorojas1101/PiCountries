@@ -24,6 +24,7 @@ const Detail = () => {
     <div>
       <h1>{country.name}</h1>
       <img src={country.flagImage} alt="Country Flag" />
+      <h2>ID: {country.id}</h2>
       <p>Continent: {country.continents}</p>
       <p>Capital: {country.capital}</p>
       <p>Subregion: {country.subregion}</p>
