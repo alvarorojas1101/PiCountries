@@ -1,0 +1,40 @@
+.formGroup {
+  display: inline-block;
+  margin-right: 10px;
+  margin-top: 20px;
+  font-size: 14px;
+  padding: 6px;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.label {
+  color: #070707;
+  margin-right: 5px;
+}
+
+.selectInput {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #5f616d;
+}
+
+.selectInput:hover {
+  border-color: #999;
+}
+
+.button {
+  padding: 8px 16px;
+  background-color: #0a0b23;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}

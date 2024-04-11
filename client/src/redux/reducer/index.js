@@ -7,31 +7,37 @@ import {
   FILTER_BY_CONTINENT,
   SORT_COUNTRIES,
   SORT_COUNTRIES_BY_POPULATION,
+  FILTER_BY_ACTIVITY,
+  GO_TO_PAGE,
 } from "../actions/types";
 
 // Estado inicial de la aplicación
 const initialState = {
   countries: [], // Lista de países
   filteredCountries: [], // Lista de países filtrados
-  currentCountry: [],
+  currentCountry: [], //ciudad actual
+  currentPage: 1, // Página actual
+  totalPages: 1, // Total de páginas
 };
 
-// En reducer/index.js
 const reducer = (state = initialState, action) => {
-  let sortedCountries = [...state.countries]; // Mover la declaración aquí
+  let sortedCountries = [...state.countries];
 
   switch (action.type) {
     case SEARCH_COUNTRIES_BY_NAME:
       return {
         ...state,
         filteredCountries: action.payload,
+        currentPage: 1,
       };
 
     case FETCH_COUNTRIES:
+      const totalPages = Math.ceil(action.payload.length / 10);
       return {
         ...state,
         countries: action.payload,
-        filteredCountries: action.payload, // Asegurarse de que filteredCountries se actualice
+        filteredCountries: action.payload,
+        totalPages,
       };
 
     case FETCH_COUNTRIES_BY_ID:
@@ -52,6 +58,7 @@ const reducer = (state = initialState, action) => {
         filteredCountries: state.countries.filter(
           (country) => country.continents === action.payload
         ),
+        currentPage: 1,
       };
 
     case SORT_COUNTRIES:
@@ -63,7 +70,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         countries: sortedCountries,
-        filteredCountries: sortedCountries, // Actualizar filteredCountries
+        filteredCountries: sortedCountries,
       };
 
     case SORT_COUNTRIES_BY_POPULATION:
@@ -75,7 +82,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         countries: sortedCountries,
-        filteredCountries: sortedCountries, // Actualizar filteredCountries
+        filteredCountries: sortedCountries,
+      };
+
+    case FILTER_BY_ACTIVITY:
+      return {
+        ...state,
+        filteredCountries: state.countries.filter((country) =>
+          country.countryActivities.includes(action.payload)
+        ),
+      };
+
+    case GO_TO_PAGE:
+      return {
+        ...state,
+        currentPage: action.payload,
       };
 
     default:

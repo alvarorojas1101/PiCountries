@@ -6,10 +6,8 @@ import { Link } from "react-router-dom";
 const Cards = ({ countries }) => {
   return (
     <div className={styles.cards}>
-      {countries.map(({ id, name, flagImage, continents }) => (
-        <Link to={`/countries/${id}`} key={id}>
-          {" "}
-          {/* Corregido: key se aplica correctamente */}
+      {countries?.map(({ id, name, flagImage, continents }) => (
+        <Link to={`/detail/${id}`} key={id}>
           <Card name={name} flagImage={flagImage} continents={continents} />
         </Link>
       ))}

@@ -5,4 +5,4 @@ function Form() {
   return <div>Form</div>;
 }
 
-export default Form; // Asegúrate de que esta línea esté presente
+export default Form;

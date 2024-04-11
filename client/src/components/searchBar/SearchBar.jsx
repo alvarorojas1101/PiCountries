@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { searchCountriesByName, clearSearch } from "../../redux/actions/index";
+import styles from "./SearchBar.module.css";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,14 +21,17 @@ const SearchBar = () => {
   };
 
   return (
-    <div>
+    <div className={styles["search-bar-container"]}>
       <input
         type="text"
         placeholder="Buscar país por nombre"
         value={searchTerm}
         onChange={handleChange}
+        className={styles["search-bar-input"]}
       />
-      <button onClick={handleSearch}>Buscar</button>
+      <button onClick={handleSearch} className={styles["search-bar-button"]}>
+        Buscar
+      </button>
     </div>
   );
 };

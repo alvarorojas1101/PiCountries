@@ -7,7 +7,11 @@ export const searchCountriesByName = (name) => {
       const response = await axios.get(
         `http://localhost:3001/countries/name/${name}`
       );
-      dispatch({ type: "SEARCH_COUNTRIES_BY_NAME", payload: response.data });
+      dispatch({
+        type: "SEARCH_COUNTRIES_BY_NAME",
+        payload: response.data,
+        currentPage: 1,
+      });
     } catch (error) {
       console.error("Error al buscar países:", error);
     }
@@ -49,6 +53,7 @@ export const clearSearch = () => {
 export const filterByContinent = (continent) => ({
   type: "FILTER_BY_CONTINENT",
   payload: continent,
+  currentPage: 1,
 });
 
 // ordenar paises alfab
@@ -61,4 +66,16 @@ export const sortCountries = (sortType) => ({
 export const sortCountriesByPopulation = (sortType) => ({
   type: "SORT_COUNTRIES_BY_POPULATION",
   payload: sortType,
+});
+
+//filtrar por actividad
+export const filterByActivity = (activityName) => ({
+  type: FILTER_BY_ACTIVITY,
+  payload: activityName,
+});
+
+//paginado
+export const goToPage = (pageNumber) => ({
+  type: "GO_TO_PAGE",
+  payload: pageNumber,
 });

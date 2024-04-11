@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// Home.jsx
 import {
   fetchCountries,
   filterByContinent,
   sortCountries,
   sortCountriesByPopulation,
+  filterByActivity,
+  goToPage,
 } from "../../redux/actions/index";
-import SearchBar from "../searchBar/SearchBar";
+
 import Cards from "../cards/Cards";
 import styles from "./Home.module.css";
 
@@ -15,6 +16,9 @@ const Home = () => {
   const dispatch = useDispatch();
   const countries = useSelector((state) => state.countries);
   const filteredCountries = useSelector((state) => state.filteredCountries);
+  const activities = useSelector((state) => state.activities);
+  const currentPage = useSelector((state) => state.currentPage);
+  const totalPages = useSelector((state) => state.totalPages);
 
   useEffect(() => {
     dispatch(fetchCountries());
@@ -55,46 +59,87 @@ const Home = () => {
     }
   };
 
+  const handleFilterByActivity = (e) => {
+    const activity = e.target.value;
+    if (activity) {
+      dispatch(filterByActivity(activity));
+    } else {
+      dispatch(fetchCountries());
+    }
+  };
+
+  const handlePageChange = (pageNumber) => {
+    dispatch(goToPage(pageNumber));
+  };
+
   const countriesToShow =
-    filteredCountries.length > 0 ? filteredCountries : countries;
+    filteredCountries.length > 0
+      ? filteredCountries.slice((currentPage - 1) * 10, currentPage * 10)
+      : countries.slice((currentPage - 1) * 10, currentPage * 10);
 
   return (
     <div>
-      <div>
-        <SearchBar />
-      </div>
-      <div>
-        <label className="filterSelect" htmlFor="continentSelector">
-          Elegir Continente:{" "}
+      <div className={styles.formGroup}>
+        <label className={styles.label} htmlFor="continentSelector">
+          Elegir Continente:
         </label>
-        <select onChange={handleFilterByContinent}>
+        <select
+          className={styles.selectInput}
+          onChange={handleFilterByContinent}>
           <option value="">Seleccionar</option>
-          <option value="Europe">Europe</option>
-          <option value="Oceania">Oceania</option>
-          <option value="America">America</option>
           <option value="Africa">Africa</option>
           <option value="Asia">Asia</option>
+          <option value="North America">North America</option>
+          <option value="Europe">Europe</option>
+          <option value="South America">South America</option>
+          <option value="Oceania">Oceania</option>
           <option value="Antarctica">Antartica</option>
         </select>
-        <label className="filterSelect" htmlFor="orderSelector">
-          Ordenar Alfabéticamente:{" "}
+      </div>
+      <div className={styles.formGroup}>
+        <label className={styles.label} htmlFor="orderSelector">
+          Ordenar Alfabéticamente:
         </label>
-        <select onChange={handleSortAlpha}>
+        <select className={styles.selectInput} onChange={handleSortAlpha}>
           <option value="">Seleccionar</option>
           <option value="A">Ascendente</option>
           <option value="D"> Descendente</option>
         </select>
-        <label className="filterSelect" htmlFor="populationSelector">
-          Ordenar por población:{" "}
+      </div>
+      <div className={styles.formGroup}>
+        <label className={styles.label} htmlFor="populationSelector">
+          Ordenar por población:
         </label>
-        <select onChange={handleSortPopulation}>
+        <select className={styles.selectInput} onChange={handleSortPopulation}>
           <option value="">Seleccionar</option>
           <option value="populationA">Ascendente</option>
           <option value="populationD"> Descendente</option>
         </select>
       </div>
+      <div className={styles.formGroup}>
+        <select
+          className={styles.selectInput}
+          onChange={handleFilterByActivity}>
+          <option value="">Seleccionar actividad</option>
+          {activities?.map((activity) => (
+            <option key={activity} value={activity}>
+              {activity}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className={styles.homecards}>
         <Cards countries={countriesToShow} />
+      </div>
+      <div>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            className={styles.button}
+            key={index}
+            onClick={() => handlePageChange(index + 1)}>
+            {index + 1}
+          </button>
+        ))}
       </div>
     </div>
   );

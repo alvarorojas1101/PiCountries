@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 import { fetchCountriesById } from "../../redux/actions/index";
+import styles from "./Detail.module.css";
 
 const Detail = () => {
   const { id } = useParams();
@@ -21,15 +21,19 @@ const Detail = () => {
   }, [dispatch, id]);
 
   return (
-    <div>
-      <h1>{country.name}</h1>
-      <img src={country.flagImage} alt="Country Flag" />
-      <h2>ID: {country.id}</h2>
-      <p>Continent: {country.continents}</p>
-      <p>Capital: {country.capital}</p>
-      <p>Subregion: {country.subregion}</p>
-      <p>Area: {country.area}</p>
-      <p>Population: {country.population}</p>
+    <div className={styles.container}>
+      <div className={styles.leftColumn}>
+        <h1>{country.name}</h1>
+        <img src={country.flagImage} alt="Country Flag" />
+      </div>
+      <div className={styles.rightColumn}>
+        <h2>ID: {country.id}</h2>
+        <h2>Continent: {country.continents}</h2>
+        <h2>Capital: {country.capital}</h2>
+        <h2>Subregion: {country.subregion}</h2>
+        <h2>Area: {country.area}</h2>
+        <h2>Population: {country.population}</h2>
+      </div>
     </div>
   );
 };
