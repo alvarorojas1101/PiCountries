@@ -13,7 +13,7 @@ const FormPage = () => {
   const dispatch = useDispatch();
   const countries = useSelector((state) => state.countries);
   const navigate = useNavigate();
-  const [filteredCountries, setFilteredCountries] = useState(countries);
+  const [filteredCountries, setFilteredCountries] = useState([]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -75,7 +75,7 @@ const FormPage = () => {
         return country.name.toLowerCase().includes(searchTerm);
       });
     } else {
-      dispatch(clearSearch());
+      filteredCountries = [];
     }
     // Actualizar la lista de países mostrada
     setFilteredCountries(filteredCountries);

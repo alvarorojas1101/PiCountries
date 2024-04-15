@@ -75,6 +75,14 @@ const Home = () => {
       ? filteredCountries.slice((currentPage - 1) * 10, currentPage * 10)
       : countries.slice((currentPage - 1) * 10, currentPage * 10);
 
+  const allActivities = countries.reduce((acc, country) => {
+    country.countryActivities.forEach((activity) => {
+      acc.add(activity.name);
+    });
+    return acc;
+  }, new Set());
+  const uniqueActivities = Array.from(allActivities);
+
   return (
     <div>
       <div className={styles.formGroup}>
@@ -122,13 +130,11 @@ const Home = () => {
           className={styles.selectInput}
           onChange={handleFilterByActivity}>
           <option value="">All</option>
-          {countries.map((country) =>
-            country.countryActivities?.map((activity) => (
-              <option key={activity.id} value={activity.name}>
-                {activity.name}
-              </option>
-            ))
-          )}
+          {uniqueActivities.map((activity, index) => (
+            <option key={index} value={activity}>
+              {activity}
+            </option>
+          ))}
         </select>
       </div>
       <div className={styles.homecards}>
