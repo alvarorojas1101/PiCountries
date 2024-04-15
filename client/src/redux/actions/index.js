@@ -79,3 +79,20 @@ export const goToPage = (pageNumber) => ({
   type: "GO_TO_PAGE",
   payload: pageNumber,
 });
+
+//nueva actividad
+export const createActivity = (activityData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/activities",
+        activityData
+      );
+      dispatch({ type: "CREATE_ACTIVITY", payload: response.data });
+      alert("Actividad creada correctamente");
+    } catch (error) {
+      console.error("Error al crear la actividad: ", error);
+      alert("No se pudo crear la actividad");
+    }
+  };
+};

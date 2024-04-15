@@ -86,7 +86,7 @@ const Home = () => {
         <select
           className={styles.selectInput}
           onChange={handleFilterByContinent}>
-          <option value="">Seleccionar</option>
+          <option value="">All</option>
           <option value="Africa">Africa</option>
           <option value="Asia">Asia</option>
           <option value="North America">North America</option>
@@ -132,12 +132,15 @@ const Home = () => {
         <Cards countries={countriesToShow} />
       </div>
       <div>
+        {/* Crear botones para cada página */}
         {Array.from({ length: totalPages }, (_, index) => (
           <button
-            className={styles.button}
-            key={index}
+            className={styles.button} // Establecer clase de estilo para el botón
+            key={index} // Establecer clave única para React
             onClick={() => handlePageChange(index + 1)}>
-            {index + 1}
+            {" "}
+            {/* Manejar clic en el botón */}
+            {index + 1} {/* Mostrar número de página */}
           </button>
         ))}
       </div>

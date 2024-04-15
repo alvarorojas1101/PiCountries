@@ -9,6 +9,7 @@ import {
   SORT_COUNTRIES_BY_POPULATION,
   FILTER_BY_ACTIVITY,
   GO_TO_PAGE,
+  CREATE_ACTIVITY,
 } from "../actions/types";
 
 // Estado inicial de la aplicación
@@ -18,6 +19,7 @@ const initialState = {
   currentCountry: [], //ciudad actual
   currentPage: 1, // Página actual
   totalPages: 1, // Total de páginas
+  activity: [], // actividades
 };
 
 const reducer = (state = initialState, action) => {
@@ -97,6 +99,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentPage: action.payload,
+      };
+
+    case CREATE_ACTIVITY:
+      return {
+        ...state,
+        activity: action.payload,
       };
 
     default:

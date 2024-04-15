@@ -29,9 +29,6 @@ const SearchBar = () => {
         onChange={handleChange}
         className={styles["search-bar-input"]}
       />
-      <button onClick={handleSearch} className={styles["search-bar-button"]}>
-        Buscar
-      </button>
     </div>
   );
 };
