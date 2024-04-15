@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notEmpty: true, // Asegura que el nombre no esté vacío
+          notEmpty: true, 
         },
       },
       flagImage: {

@@ -2,8 +2,6 @@ const { Activity, Country } = require("../db");
 
 exports.getActivities = async (req, res) => {
   try {
-    // obtiene todas las actividades de la base de datos, incluyendo los países asociados a cada actividad
-
     const activities = await Activity.findAll({
       include: [
         { model: Country, as: "activityCountries", attributes: ["id", "name"] },

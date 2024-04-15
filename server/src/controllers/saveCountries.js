@@ -9,9 +9,8 @@ async function saveCountries() {
 
     await Promise.all(
       countries.map((country) => {
-        // Transforma los datos aquí
         const saveCountry = {
-          id: country.ccn3, // Utiliza ccn3 como identificador único
+          id: country.ccn3,
           name: country.name.common,
           flagImage: country.flags.png,
           continents: Array.isArray(country.continents)
