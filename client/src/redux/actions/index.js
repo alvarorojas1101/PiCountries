@@ -90,9 +90,11 @@ export const createActivity = (activityData) => {
       );
       dispatch({ type: "CREATE_ACTIVITY", payload: response.data });
       alert("Actividad creada correctamente");
+      return Promise.resolve(); // Devuelve una promesa resuelta
     } catch (error) {
       console.error("Error al crear la actividad: ", error);
       alert("No se pudo crear la actividad");
+      return Promise.reject(error); // Devuelve una promesa rechazada
     }
   };
 };

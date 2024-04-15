@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createActivity, fetchCountries } from "../../redux/actions/index";
+import { validateField } from "./validate";
+import {
+  createActivity,
+  fetchCountries,
+  clearSearch,
+} from "../../redux/actions/index";
+import { useNavigate } from "react-router-dom";
 
 const FormPage = () => {
   const dispatch = useDispatch();
-  const countries = useSelector((state) => state.countries); // Asegúrate de que este es el camino correcto a la lista de países en tu estado
-  useEffect(() => {
-    dispatch(fetchCountries());
-  }, [dispatch]);
+  const countries = useSelector((state) => state.countries);
+  const navigate = useNavigate();
+  const [filteredCountries, setFilteredCountries] = useState(countries);
 
   const [formData, setFormData] = useState({
     name: "",
     difficulty: "",
     duration: "",
     season: "",
-    activityCountries: [], // Asegúrate de que este es el campo correcto
+    activityCountries: [],
   });
 
   const [formErrors, setFormErrors] = useState({
@@ -55,34 +60,29 @@ const FormPage = () => {
       ...formData,
       countryId: formData.activityCountries,
     };
-    dispatch(createActivity(activityData));
+    dispatch(createActivity(activityData)).then(() => {
+      navigate("/home");
+    });
   };
 
-  const validateField = (fieldName, value) => {
-    let error = "";
-
-    switch (fieldName) {
-      case "name":
-        if (/\d/.test(value)) {
-          error = "Name cannot contain numbers";
-        }
-        break;
-      case "difficulty":
-        if (value < 1 || value > 5) {
-          error = "Difficulty must be a number between 1 and 5";
-        }
-        break;
-      case "duration":
-        if (value < 0) {
-          error = "Duration must be a positive number";
-        }
-        break;
-      default:
-        break;
+  const handleSearch = function (e) {
+    const searchTerm = e.target.value.toLowerCase();
+    let filteredCountries = [];
+    // Filtrar países según el término de búsqueda
+    if (searchTerm) {
+      filteredCountries = countries.filter(function (country) {
+        return country.name.toLowerCase().includes(searchTerm);
+      });
+    } else {
+      dispatch(clearSearch());
     }
-
-    return error;
+    // Actualizar la lista de países mostrada
+    setFilteredCountries(filteredCountries);
   };
+
+  useEffect(() => {
+    dispatch(fetchCountries());
+  }, [dispatch]);
 
   return (
     <div>
@@ -144,8 +144,11 @@ const FormPage = () => {
           {formErrors.season && <span>{formErrors.season}</span>}
         </div>
         <div>
-          <label>Countries:</label>
-          {countries.map((country) => (
+          <label>Search Countries:</label>
+          <input type="text" onChange={handleSearch} placeholder="Search..." />
+        </div>
+        <div>
+          {filteredCountries.map((country) => (
             <div key={country.id}>
               <input
                 type="checkbox"

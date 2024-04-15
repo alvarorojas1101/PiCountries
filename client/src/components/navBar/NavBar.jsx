@@ -1,12 +1,18 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import SearchBar from "../searchBar/SearchBar";
 
 const NavBar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const isHome = location.pathname === "/";
   const isForm = location.pathname === "/form";
+
+  const handleLogout = () => {
+    navigate("/"); // Redirige al usuario a la ruta raíz
+  };
 
   if (isHome) {
     return null;
@@ -30,9 +36,9 @@ const NavBar = () => {
         </ul>
         {!isForm && <SearchBar />}
         <ul>
-          <Link to="/">
-            <button className={styles.btnBar}>Salir</button>
-          </Link>
+          <button className={styles.btnBar} onClick={handleLogout}>
+            Salir
+          </button>
         </ul>
       </nav>
     </div>

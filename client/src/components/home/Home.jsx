@@ -8,7 +8,6 @@ import {
   filterByActivity,
   goToPage,
 } from "../../redux/actions/index";
-
 import Cards from "../cards/Cards";
 import styles from "./Home.module.css";
 
@@ -19,10 +18,6 @@ const Home = () => {
   const activities = useSelector((state) => state.activities);
   const currentPage = useSelector((state) => state.currentPage);
   const totalPages = useSelector((state) => state.totalPages);
-
-  useEffect(() => {
-    dispatch(fetchCountries());
-  }, [dispatch]);
 
   const handleFilterByContinent = (e) => {
     const continent = e.target.value;
@@ -71,6 +66,10 @@ const Home = () => {
   const handlePageChange = (pageNumber) => {
     dispatch(goToPage(pageNumber));
   };
+
+  useEffect(() => {
+    dispatch(fetchCountries());
+  }, [dispatch]);
 
   const countriesToShow =
     filteredCountries.length > 0
@@ -132,15 +131,12 @@ const Home = () => {
         <Cards countries={countriesToShow} />
       </div>
       <div>
-        {/* Crear botones para cada página */}
         {Array.from({ length: totalPages }, (_, index) => (
           <button
-            className={styles.button} // Establecer clase de estilo para el botón
-            key={index} // Establecer clave única para React
+            className={styles.button}
+            key={index}
             onClick={() => handlePageChange(index + 1)}>
-            {" "}
-            {/* Manejar clic en el botón */}
-            {index + 1} {/* Mostrar número de página */}
+            {index + 1}
           </button>
         ))}
       </div>

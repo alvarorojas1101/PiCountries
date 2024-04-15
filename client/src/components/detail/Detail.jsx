@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCountriesById } from "../../redux/actions/index";
@@ -12,7 +12,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchCountry = async () => {
       try {
-        await dispatch(fetchCountriesById(id)); // Llama a la acción fetchCountriesById con el ID del país
+        await dispatch(fetchCountriesById(id));
       } catch (error) {
         console.error("Error fetching country details:", error);
       }
@@ -21,18 +21,39 @@ const Detail = () => {
   }, [dispatch, id]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.leftColumn}>
-        <h1>{country.name}</h1>
-        <img src={country.flagImage} alt="Country Flag" />
+    <div>
+      <div className={styles.container}>
+        <div className={styles.leftColumn}>
+          <h1>{country.name}</h1>
+          <img src={country.flagImage} alt="Country Flag" />
+        </div>
+        <div className={styles.rightColumn}>
+          <h2>ID: {country.id}</h2>
+          <h2>Continent: {country.continents}</h2>
+          <h2>Capital: {country.capital}</h2>
+          <h2>Subregion: {country.subregion}</h2>
+          <h2>Area: {country.area}</h2>
+          <h2>Population: {country.population}</h2>
+        </div>
       </div>
-      <div className={styles.rightColumn}>
-        <h2>ID: {country.id}</h2>
-        <h2>Continent: {country.continents}</h2>
-        <h2>Capital: {country.capital}</h2>
-        <h2>Subregion: {country.subregion}</h2>
-        <h2>Area: {country.area}</h2>
-        <h2>Population: {country.population}</h2>
+      <div className={styles.activity}>
+        {country.countryActivities && country.countryActivities.length > 0 ? (
+          country.countryActivities.map((activity) => (
+            <div key={activity.id}>
+              <h2>
+                Activity:
+                <br /> {activity.name}
+              </h2>
+              <h3>ID: {activity.id}</h3>
+              <h3>Difficulty: {activity.difficulty}</h3>
+              <h3>Duration: {activity.duration}</h3>
+              <h3>Season: {activity.season}</h3>
+              <br />
+            </div>
+          ))
+        ) : (
+          <h2>No hay actividad para este país.</h2>
+        )}
       </div>
     </div>
   );
