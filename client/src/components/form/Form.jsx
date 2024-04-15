@@ -7,6 +7,7 @@ import {
   clearSearch,
 } from "../../redux/actions/index";
 import { useNavigate } from "react-router-dom";
+import styles from "./Form.module.css";
 
 const FormPage = () => {
   const dispatch = useDispatch();
@@ -85,7 +86,7 @@ const FormPage = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className={styles.form}>
       <h2>Create Touristic Activity</h2>
       <form onSubmit={handleSubmit}>
         <div>

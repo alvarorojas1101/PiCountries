@@ -91,7 +91,9 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         filteredCountries: state.countries.filter((country) =>
-          country.countryActivities.includes(action.payload)
+          country.countryActivities.some(
+            (activity) => activity.name === action.payload
+          )
         ),
       };
 

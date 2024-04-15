@@ -1,1 +1,43 @@
-import React, { useState, useEffect } from "react"; importar {useDispatch, useSelector} desde "react-redux"; importar { createActivity, fetchCountries, clearSearch, } de "../../redux/actions/index"; importar {Enlace} desde "react-router-dom"; const FormPage = () => { const despacho = useDispatch(); países constantes = useSelector((estado) => estado.países); useEffect(() => { despacho(fetchCountries()); }, [despacho]); const [formData, setFormData] = useState({ nombre: "", dificultad: "", duración: "", temporada: "", actividadPaíses: [], }); const [formErrors, setFormErrors] = useState({ nombre: "", dificultad: "", duración: "", temporada: "", }); const [Países filtrados, setPaíses filtrados] = useState(países); // <-- Declarar filteredCountries const handleInputChange = (e) => { const { nombre, valor } = e.target; error constante = validar campo (nombre, valor); setFormData({ ...formData, [nombre]: valor, }); setFormErrors({ ...formErrors, [nombre]: error, }); }; const handleCountryChange = (e) => { const { verificado, valor } = e.target; setFormData((prevState) => ({ ...prevState, actividadCountries: marcado? [...prevState.activityCountries, valor] : prevState.activityCountries.filter( (countryId) => countryId !== valor ), })) ; }; const handleSubmit = (e) => { e.preventDefault(); const actividadData = { ...formData, countryId: formData.activityCountries, }; despacho(createActivity(actividadData)); }; const validarCampo = (nombre del campo, valor) => { let error = ""; switch (fieldName) { case "nombre": if (/\d/.test(value)) { error = "El nombre no puede contener números"; } romper; case "dificultad": if (valor < 1 || valor > 5) { error = "La dificultad debe ser un número entre 1 y 5"; } romper; case "duración": if (valor < 0) { error = "La duración debe ser un número positivo"; } romper; predeterminado: romper; } error de devolución; }; const handleSearch = función (e) { const searchTerm = e.target.value.toLowerCase(); let países filtrados = []; // Filtrar países según el término de búsqueda if (searchTerm) { filteredCountries = paises.filter(function (country) { return country.name.toLowerCase().incluye (término de búsqueda); }); } más { despacho(clearSearch()); } // Actualizar la lista de países mostrados setFilteredCountries(filteredCountries); }; return ( <div> <h2>Crear actividad turística</h2> <form onSubmit={handleSubmit}> <div> <label htmlFor="name">Nombre:</label> <input type="text" id=" nombre" nombre="nombre" valor={formData.name} onChange={handleInputChange} requerido /> {formErrors.name && <span>{formErrors.name}</span>} </div> <div> <label htmlFor ="dificultad">Dificultad:</label> <tipo de entrada="número" id="dificultad" nombre="dificultad" valor={formData.difficulty} onChange={handleInputChange} min="1" max="5" requerido /> {formErrors.difficulty && <span>{formErrors.difficulty}</span>} </div> <div> <label htmlFor="duration">Duración (horas):</label> <input type=" número" id="duración" nombre="duración" valor={formData.duration} onChange={handleInputChange} min="0" requerido /> {formErrors.duration && <span>{formErrors.duration}</span>} </div> <div> <label htmlFor="season">Temporada:</label> <select id="season" name="season" value={formData.season} onChange={handleInputChange} obligatorio> <valor de opción ="">Seleccionar</option> <option value="Verano">Verano</option> <option value="Otoño">Otoño</option> <option value="Invierno">Invierno</option> <opción value="Primavera">Primavera</option> </select> {formErrors.season && <span>{formErrors.season}</span>} </div> <div> <label>Buscar países:</label> <input type="text" onChange={handleSearch} placeholder="Buscar..." /> </div> <div> {/* Lista de países filtrados */} {filteredCountries.map((country) => ( <div key={país.id}> <input type="checkbox" id={`país-${país.id}`} nombre={`país-${país.id}`} valor={país.id} onChange={handleCountryChange} /> <label htmlFor={`país-${país.id}`}>{ país.nombre}</label> </div> ))} </div> <button type="submit">Crear actividad</button> <Link to="/home"></Link> </form> </div>); }; exportar FormPage predeterminado;
+.form {
+  margin: 60px auto;
+
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 70%;
+}
+
+.form button {
+  margin: 20px auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.form button:hover {
+  background-color: #45a049;
+}
+
+.form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.form input[type="text"],
+.form input[type="number"],
+.form select {
+  width: 50%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form span {
+  color: #ff5733;
+}

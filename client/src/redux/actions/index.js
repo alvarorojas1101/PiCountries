@@ -70,7 +70,7 @@ export const sortCountriesByPopulation = (sortType) => ({
 
 //filtrar por actividad
 export const filterByActivity = (activityName) => ({
-  type: FILTER_BY_ACTIVITY,
+  type: "FILTER_BY_ACTIVITY",
   payload: activityName,
 });
 

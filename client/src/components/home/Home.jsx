@@ -15,7 +15,6 @@ const Home = () => {
   const dispatch = useDispatch();
   const countries = useSelector((state) => state.countries);
   const filteredCountries = useSelector((state) => state.filteredCountries);
-  const activities = useSelector((state) => state.activities);
   const currentPage = useSelector((state) => state.currentPage);
   const totalPages = useSelector((state) => state.totalPages);
 
@@ -116,15 +115,20 @@ const Home = () => {
         </select>
       </div>
       <div className={styles.formGroup}>
+        <label className={styles.label} htmlFor="ActivitySelector">
+          Selecionar Actividad:
+        </label>
         <select
           className={styles.selectInput}
           onChange={handleFilterByActivity}>
-          <option value="">Seleccionar actividad</option>
-          {activities?.map((activity) => (
-            <option key={activity} value={activity}>
-              {activity}
-            </option>
-          ))}
+          <option value="">All</option>
+          {countries.map((country) =>
+            country.countryActivities?.map((activity) => (
+              <option key={activity.id} value={activity.name}>
+                {activity.name}
+              </option>
+            ))
+          )}
         </select>
       </div>
       <div className={styles.homecards}>
