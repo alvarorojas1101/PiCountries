@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { validateField } from "./validate";
-import {
-  createActivity,
-  fetchCountries,
-  clearSearch,
-} from "../../redux/actions/index";
+import { createActivity, fetchCountries } from "../../redux/actions/index";
 import { useNavigate } from "react-router-dom";
 import styles from "./Form.module.css";
 
@@ -69,7 +65,6 @@ const FormPage = () => {
   const handleSearch = function (e) {
     const searchTerm = e.target.value.toLowerCase();
     let filteredCountries = [];
-    // Filtrar países según el término de búsqueda
     if (searchTerm) {
       filteredCountries = countries.filter(function (country) {
         return country.name.toLowerCase().includes(searchTerm);
@@ -77,7 +72,6 @@ const FormPage = () => {
     } else {
       filteredCountries = [];
     }
-    // Actualizar la lista de países mostrada
     setFilteredCountries(filteredCountries);
   };
 

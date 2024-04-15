@@ -1,4 +1,3 @@
-// Importación de constantes de tipos de acciones desde un archivo externo
 import {
   SEARCH_COUNTRIES_BY_NAME,
   FETCH_COUNTRIES,
@@ -12,7 +11,6 @@ import {
   CREATE_ACTIVITY,
 } from "../actions/types";
 
-// Estado inicial de la aplicación
 const initialState = {
   countries: [], // Lista de países
   filteredCountries: [], // Lista de países filtrados

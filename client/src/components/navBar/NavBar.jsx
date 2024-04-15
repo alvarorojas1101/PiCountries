@@ -11,7 +11,7 @@ const NavBar = () => {
   const isForm = location.pathname === "/form";
 
   const handleLogout = () => {
-    navigate("/"); // Redirige al usuario a la ruta raíz
+    navigate("/");
   };
 
   if (isHome) {
@@ -31,13 +31,13 @@ const NavBar = () => {
         </ul>
         <ul>
           <Link to="/form">
-            <button className={styles.btnBar}>Crear actividad</button>
+            <button className={styles.btnBar}>Create Activity</button>
           </Link>
         </ul>
         {!isForm && <SearchBar />}
         <ul>
           <button className={styles.btnBar} onClick={handleLogout}>
-            Salir
+            Out
           </button>
         </ul>
       </nav>

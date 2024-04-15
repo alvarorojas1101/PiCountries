@@ -52,7 +52,7 @@ const Detail = () => {
             </div>
           ))
         ) : (
-          <h2>No hay actividad para este país.</h2>
+          <h2>There is no activity for this country.</h2>
         )}
       </div>
     </div>

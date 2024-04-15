@@ -11,7 +11,6 @@ const SearchBar = () => {
     if (searchTerm.trim() !== "") {
       dispatch(searchCountriesByName(searchTerm));
     } else {
-      // Limpia la búsqueda cuando el campo de entrada está vacío
       dispatch(clearSearch());
     }
   };
@@ -24,7 +23,7 @@ const SearchBar = () => {
     <div className={styles["search-bar-container"]}>
       <input
         type="text"
-        placeholder="Buscar país por nombre"
+        placeholder="Search By Name"
         value={searchTerm}
         onChange={handleChange}
         className={styles["search-bar-input"]}

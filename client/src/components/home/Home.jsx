@@ -87,7 +87,7 @@ const Home = () => {
     <div>
       <div className={styles.formGroup}>
         <label className={styles.label} htmlFor="continentSelector">
-          Elegir Continente:
+          Select Continent:
         </label>
         <select
           className={styles.selectInput}
@@ -104,27 +104,27 @@ const Home = () => {
       </div>
       <div className={styles.formGroup}>
         <label className={styles.label} htmlFor="orderSelector">
-          Ordenar Alfabéticamente:
+          Order Alphabetically:
         </label>
         <select className={styles.selectInput} onChange={handleSortAlpha}>
-          <option value="">Seleccionar</option>
-          <option value="A">Ascendente</option>
-          <option value="D"> Descendente</option>
+          <option value="">Select</option>
+          <option value="A">Asc</option>
+          <option value="D"> Desc</option>
         </select>
       </div>
       <div className={styles.formGroup}>
         <label className={styles.label} htmlFor="populationSelector">
-          Ordenar por población:
+          Select By Population:
         </label>
         <select className={styles.selectInput} onChange={handleSortPopulation}>
-          <option value="">Seleccionar</option>
-          <option value="populationA">Ascendente</option>
-          <option value="populationD"> Descendente</option>
+          <option value="">Select</option>
+          <option value="populationA">Asc</option>
+          <option value="populationD"> Desc</option>
         </select>
       </div>
       <div className={styles.formGroup}>
         <label className={styles.label} htmlFor="ActivitySelector">
-          Selecionar Actividad:
+          Select Activity:
         </label>
         <select
           className={styles.selectInput}
