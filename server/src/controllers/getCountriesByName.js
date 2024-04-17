@@ -4,8 +4,10 @@ const { Op } = require("sequelize");
 
 exports.getCountriesByName = async (req, res) => {
   try {
+    // se busca nombre por params
     const { name } = req.params;
     const countries = await Country.findAll({
+      //se busca por nombre ignorando mayus o minus
       where: { name: { [Op.iLike]: `%${name}%` } },
       include: [
         {
@@ -14,6 +16,7 @@ exports.getCountriesByName = async (req, res) => {
         },
       ],
     });
+    //si el arreglo esta vacio no se encontraron nombres
     if (countries.length === 0) {
       return res.status(404).json({ error: "There are no matches by name" });
     }

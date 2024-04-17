@@ -4,10 +4,13 @@ const Country = require("../models/Country.js")(conn);
 
 async function saveCountries() {
   try {
+    //extraemos los paises de la api
     const response = await axios.get("http://localhost:5000/countries");
+    //extraemos la data de los paises
     const countries = response.data;
-
+    //termina la promesa al terminar todos los paises
     await Promise.all(
+      //mapeo pais por pais
       countries.map((country) => {
         const saveCountry = {
           id: country.ccn3,
@@ -23,7 +26,7 @@ async function saveCountries() {
           area: Math.round(country.area),
           population: country.population,
         };
-
+        //crea uno por uno el pais
         return Country.create(saveCountry);
       })
     );

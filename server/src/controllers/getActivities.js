@@ -2,6 +2,7 @@ const { Activity, Country } = require("../db");
 
 exports.getActivities = async (req, res) => {
   try {
+    //trae todas las intancias de las actividades 
     const activities = await Activity.findAll({
       include: [
         { model: Country, as: "activityCountries", attributes: ["id", "name"] },

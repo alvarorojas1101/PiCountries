@@ -2,6 +2,7 @@ const { Country, Activity } = require("../db");
 
 exports.allCountries = async (req, res) => {
   try {
+    // trae todas las intacias de los paises incliodos actividades
     const countries = await Country.findAll({
       include: [
         {
