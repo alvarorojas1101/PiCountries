@@ -7,10 +7,13 @@ import styles from "./Form.module.css";
 
 const FormPage = () => {
   const dispatch = useDispatch();
+  //obtenemos los paises del estado global
   const countries = useSelector((state) => state.countries);
   const navigate = useNavigate();
+  //estado local para almacenar los paises
   const [filteredCountries, setFilteredCountries] = useState([]);
 
+  //estado local para almacenar los datos del formulario
   const [formData, setFormData] = useState({
     name: "",
     difficulty: "",
@@ -18,7 +21,7 @@ const FormPage = () => {
     season: "",
     activityCountries: [],
   });
-
+  //estado local para almacenar los errores de validacion
   const [formErrors, setFormErrors] = useState({
     name: "",
     difficulty: "",
@@ -26,6 +29,7 @@ const FormPage = () => {
     season: "",
   });
 
+  //cambios de entrada del formulario
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     const error = validateField(name, value);
@@ -39,6 +43,7 @@ const FormPage = () => {
     });
   };
 
+  //cambios de selecion de paises
   const handleCountryChange = (e) => {
     const { checked, value } = e.target;
     setFormData((prevState) => ({
@@ -51,6 +56,7 @@ const FormPage = () => {
     }));
   };
 
+  // envio de formulario
   const handleSubmit = (e) => {
     e.preventDefault();
     const activityData = {
@@ -62,6 +68,7 @@ const FormPage = () => {
     });
   };
 
+  //busqueda de paises
   const handleSearch = function (e) {
     const searchTerm = e.target.value.toLowerCase();
     let filteredCountries = [];
@@ -75,6 +82,7 @@ const FormPage = () => {
     setFilteredCountries(filteredCountries);
   };
 
+  //carga los paises
   useEffect(() => {
     dispatch(fetchCountries());
   }, [dispatch]);
@@ -84,6 +92,7 @@ const FormPage = () => {
       <h2>Create Touristic Activity</h2>
       <form onSubmit={handleSubmit}>
         <div>
+          {formErrors.name && <span>{formErrors.name}</span>}
           <label htmlFor="name">Name:</label>
           <input
             type="text"
@@ -93,9 +102,9 @@ const FormPage = () => {
             onChange={handleInputChange}
             required
           />
-          {formErrors.name && <span>{formErrors.name}</span>}
         </div>
         <div>
+          {formErrors.difficulty && <span>{formErrors.difficulty}</span>}
           <label htmlFor="difficulty">Difficulty:</label>
           <input
             type="number"
@@ -107,9 +116,9 @@ const FormPage = () => {
             max="5"
             required
           />
-          {formErrors.difficulty && <span>{formErrors.difficulty}</span>}
         </div>
         <div>
+          {formErrors.duration && <span>{formErrors.duration}</span>}
           <label htmlFor="duration">Duration (hours):</label>
           <input
             type="number"
@@ -120,7 +129,6 @@ const FormPage = () => {
             min="0"
             required
           />
-          {formErrors.duration && <span>{formErrors.duration}</span>}
         </div>
         <div>
           <label htmlFor="season">Season:</label>

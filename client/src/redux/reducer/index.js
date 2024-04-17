@@ -16,12 +16,11 @@ const initialState = {
   filteredCountries: [], // Lista de países filtrados
   currentCountry: [], //ciudad actual
   currentPage: 1, // Página actual
-  totalPages: 1, // Total de páginas
   activity: [], // actividades
 };
 
 const reducer = (state = initialState, action) => {
-  let sortedCountries = [...state.countries];
+  const sortedCountries = [...state.countries];
 
   switch (action.type) {
     case SEARCH_COUNTRIES_BY_NAME:
@@ -53,36 +52,50 @@ const reducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_CONTINENT:
+      const filteredByContinent = state.countries.filter(
+        (country) => country.continents === action.payload
+      );
+      if (action.payload === "All") {
+        return {
+          ...state,
+          filteredCountries: state.countries,
+          currentPage: 1,
+        };
+      }
       return {
         ...state,
-        filteredCountries: state.countries.filter(
-          (country) => country.continents === action.payload
-        ),
+        filteredCountries: filteredByContinent,
         currentPage: 1,
       };
 
     case SORT_COUNTRIES:
+      const sortedFilteredCountries = [...state.filteredCountries];
       if (action.payload === "alphabetical") {
-        sortedCountries.sort((a, b) => a.name.localeCompare(b.name));
+        sortedFilteredCountries.sort((a, b) => a.name.localeCompare(b.name));
       } else if (action.payload === "reverseAlphabetical") {
-        sortedCountries.sort((a, b) => b.name.localeCompare(a.name));
+        sortedFilteredCountries.sort((a, b) => b.name.localeCompare(a.name));
       }
       return {
         ...state,
-        countries: sortedCountries,
-        filteredCountries: sortedCountries,
+        filteredCountries: sortedFilteredCountries,
+        currentPage: 1,
       };
 
     case SORT_COUNTRIES_BY_POPULATION:
+      const sortedPopulationFilteredCountries = [...state.filteredCountries];
       if (action.payload === "population") {
-        sortedCountries.sort((a, b) => b.population - a.population);
+        sortedPopulationFilteredCountries.sort(
+          (a, b) => b.population - a.population
+        );
       } else if (action.payload === "reversePopulation") {
-        sortedCountries.sort((a, b) => a.population - b.population);
+        sortedPopulationFilteredCountries.sort(
+          (a, b) => a.population - b.population
+        );
       }
       return {
         ...state,
-        countries: sortedCountries,
-        filteredCountries: sortedCountries,
+        filteredCountries: sortedPopulationFilteredCountries,
+        currentPage: 1,
       };
 
     case FILTER_BY_ACTIVITY:
@@ -93,6 +106,7 @@ const reducer = (state = initialState, action) => {
             (activity) => activity.name === action.payload
           )
         ),
+        currentPage: 1,
       };
 
     case GO_TO_PAGE:

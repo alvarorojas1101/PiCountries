@@ -1,4 +1,3 @@
-// Cards.jsx
 import Card from "../card/Card";
 import styles from "./Cards.module.css";
 import { Link } from "react-router-dom";

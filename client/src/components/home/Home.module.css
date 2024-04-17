@@ -19,6 +19,7 @@
   border-radius: 5px;
   font-size: 14px;
   background-color: #5f616d;
+  text-align: center;
 }
 
 .selectInput:hover {
@@ -27,14 +28,23 @@
 
 .button {
   padding: 8px 16px;
-  background-color: #0a0b23;
+  background-color: #0e1381;
   color: white;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   font-size: 14px;
+
+  margin-bottom: 5px;
 }
 
 .button:hover {
   background-color: #0056b3;
+}
+.pageNumber {
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 2px;
+  color: #070707;
 }

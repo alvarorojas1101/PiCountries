@@ -20,13 +20,13 @@ const SearchBar = () => {
   };
 
   return (
-    <div className={styles["search-bar-container"]}>
+    <div className={styles.searchBarContainer}>
       <input
         type="text"
         placeholder="Search By Name"
         value={searchTerm}
         onChange={handleChange}
-        className={styles["search-bar-input"]}
+        className={styles.searchBarInput}
       />
     </div>
   );

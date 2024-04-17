@@ -4,13 +4,14 @@ import axios from "axios";
 export const searchCountriesByName = (name) => {
   return async (dispatch) => {
     try {
+      //realiza la busqueda por el nombre solicitado
       const response = await axios.get(
         `http://localhost:3001/countries/name/${name}`
       );
+      //despacha la respuesta del pais encontrado
       dispatch({
         type: "SEARCH_COUNTRIES_BY_NAME",
         payload: response.data,
-        currentPage: 1,
       });
     } catch (error) {
       console.error("Error al buscar países:", error);
@@ -53,7 +54,6 @@ export const clearSearch = () => {
 export const filterByContinent = (continent) => ({
   type: "FILTER_BY_CONTINENT",
   payload: continent,
-  currentPage: 1,
 });
 
 // ordenar paises alfab
@@ -90,10 +90,8 @@ export const createActivity = (activityData) => {
       );
       dispatch({ type: "CREATE_ACTIVITY", payload: response.data });
       alert("Successfully created activity");
-      return Promise.resolve();
     } catch (error) {
       alert("Could not create activity");
-      return Promise.reject(error);
     }
   };
 };

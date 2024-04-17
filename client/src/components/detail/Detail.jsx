@@ -8,7 +8,7 @@ const Detail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const country = useSelector((state) => state.currentCountry);
-
+  //obtiene detalles del pais
   useEffect(() => {
     const fetchCountry = async () => {
       try {
@@ -36,6 +36,7 @@ const Detail = () => {
           <h2>Population: {country.population}</h2>
         </div>
       </div>
+
       <div className={styles.activity}>
         {country.countryActivities && country.countryActivities.length > 0 ? (
           country.countryActivities.map((activity) => (
@@ -49,6 +50,7 @@ const Detail = () => {
               <h3>Duration: {activity.duration}</h3>
               <h3>Season: {activity.season}</h3>
               <br />
+              <hr />
             </div>
           ))
         ) : (

@@ -18,6 +18,7 @@ const Home = () => {
   const currentPage = useSelector((state) => state.currentPage);
   const totalPages = useSelector((state) => state.totalPages);
 
+  //filtra por continente
   const handleFilterByContinent = (e) => {
     const continent = e.target.value;
     if (continent) {
@@ -27,6 +28,7 @@ const Home = () => {
     }
   };
 
+  //ordena alfab
   const handleSortAlpha = (e) => {
     const orderType = e.target.value;
     if (orderType === "A" || orderType === "D") {
@@ -35,11 +37,10 @@ const Home = () => {
           orderType === "A" ? "alphabetical" : "reverseAlphabetical"
         )
       );
-    } else {
-      dispatch(fetchCountries());
     }
   };
 
+  //ordena por poblacion
   const handleSortPopulation = (e) => {
     const orderType = e.target.value;
     if (orderType === "populationA" || orderType === "populationD") {
@@ -48,39 +49,41 @@ const Home = () => {
           orderType === "populationA" ? "population" : "reversePopulation"
         )
       );
-    } else {
-      dispatch(fetchCountries());
     }
   };
 
+  //filtra por actividad
   const handleFilterByActivity = (e) => {
     const activity = e.target.value;
     if (activity) {
       dispatch(filterByActivity(activity));
-    } else {
-      dispatch(fetchCountries());
     }
   };
 
+  //cambia la pagina
   const handlePageChange = (pageNumber) => {
     dispatch(goToPage(pageNumber));
   };
 
+  //carga los paises al inicio y monta al componente
   useEffect(() => {
     dispatch(fetchCountries());
   }, [dispatch]);
 
+  //extrae con slice una porcion de los paises filtrados segun la currentpage
   const countriesToShow =
     filteredCountries.length > 0
       ? filteredCountries.slice((currentPage - 1) * 10, currentPage * 10)
       : countries.slice((currentPage - 1) * 10, currentPage * 10);
 
+  //metodo reduce en la matriz countries para acomular las actividades en set y eliminar duplicados
   const allActivities = countries.reduce((acc, country) => {
     country.countryActivities.forEach((activity) => {
       acc.add(activity.name);
     });
     return acc;
   }, new Set());
+  //convierte el conunto en un aeear con las actividades unicas
   const uniqueActivities = Array.from(allActivities);
 
   return (
@@ -107,7 +110,7 @@ const Home = () => {
           Order Alphabetically:
         </label>
         <select className={styles.selectInput} onChange={handleSortAlpha}>
-          <option value="">Select</option>
+          <option value="">-</option>
           <option value="A">Asc</option>
           <option value="D"> Desc</option>
         </select>
@@ -117,7 +120,7 @@ const Home = () => {
           Select By Population:
         </label>
         <select className={styles.selectInput} onChange={handleSortPopulation}>
-          <option value="">Select</option>
+          <option value="">-</option>
           <option value="populationA">Asc</option>
           <option value="populationD"> Desc</option>
         </select>
@@ -129,7 +132,7 @@ const Home = () => {
         <select
           className={styles.selectInput}
           onChange={handleFilterByActivity}>
-          <option value="">All</option>
+          <option value="">-</option>
           {uniqueActivities.map((activity, index) => (
             <option key={index} value={activity}>
               {activity}
@@ -138,17 +141,24 @@ const Home = () => {
         </select>
       </div>
       <div className={styles.homecards}>
-        <Cards countries={countriesToShow} />
-      </div>
-      <div>
-        {Array.from({ length: totalPages }, (_, index) => (
+        <div>
+          <Cards countries={countriesToShow} />
           <button
             className={styles.button}
-            key={index}
-            onClick={() => handlePageChange(index + 1)}>
-            {index + 1}
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}>
+            Anterior
           </button>
-        ))}
+          <button
+            className={styles.button}
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}>
+            Siguiente
+          </button>
+          <div>
+            <span className={styles.pageNumber}>Página {currentPage}</span>
+          </div>
+        </div>
       </div>
     </div>
   );

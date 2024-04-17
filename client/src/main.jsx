@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import store from "./redux/store/index.js";
 import { Provider } from "react-redux";
 
+// renderiza la aplicacion
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     {/* Utiliza 'Provider' para envolver toda la aplicación con el store de Redux */}

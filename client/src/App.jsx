@@ -8,6 +8,7 @@ import ActivityForm from "../src/components/form/Form.jsx";
 import "./App.css";
 import NavBar from "./components/navBar/NavBar.jsx";
 
+//estructura de la aplicacion
 function App() {
   return (
     <div className="App">

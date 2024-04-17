@@ -4,11 +4,13 @@ import styles from "./NavBar.module.css";
 import SearchBar from "../searchBar/SearchBar";
 
 const NavBar = () => {
+  // ubicacion actual y funcion de navegacion
   const location = useLocation();
   const navigate = useNavigate();
 
   const isHome = location.pathname === "/";
   const isForm = location.pathname === "/form";
+  const isDetailPage = location.pathname.includes("/detail/");
 
   const handleLogout = () => {
     navigate("/");
@@ -34,7 +36,7 @@ const NavBar = () => {
             <button className={styles.btnBar}>Create Activity</button>
           </Link>
         </ul>
-        {!isForm && <SearchBar />}
+        {!isForm && !isDetailPage && <SearchBar />}
         <ul>
           <button className={styles.btnBar} onClick={handleLogout}>
             Out
