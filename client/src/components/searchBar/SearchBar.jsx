@@ -7,16 +7,18 @@ const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useDispatch();
 
-  const handleSearch = () => {
-    if (searchTerm.trim() !== "") {
-      dispatch(searchCountriesByName(searchTerm));
+  const handleSearchInputChange = (e) => {
+    setSearchTerm(e.target.value);
+    if (e.target.value.trim() !== "") {
+      dispatch(searchCountriesByName(e.target.value.trim()));
     } else {
       dispatch(clearSearch());
     }
   };
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
-    handleSearch();
+
+  const handleClearSearch = () => {
+    setSearchTerm("");
+    dispatch(clearSearch());
   };
 
   return (
@@ -25,9 +27,12 @@ const SearchBar = () => {
         type="text"
         placeholder="Search By Name"
         value={searchTerm}
-        onChange={handleChange}
+        onChange={handleSearchInputChange}
         className={styles.searchBarInput}
       />
+      <button className={styles.clear} onClick={handleClearSearch}>
+        Clear
+      </button>
     </div>
   );
 };

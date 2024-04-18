@@ -16,7 +16,7 @@ const Home = () => {
   const countries = useSelector((state) => state.countries);
   const filteredCountries = useSelector((state) => state.filteredCountries);
   const currentPage = useSelector((state) => state.currentPage);
-  const totalPages = useSelector((state) => state.totalPages);
+  const totalPages = Math.ceil(filteredCountries.length / 10);
 
   //filtra por continente
   const handleFilterByContinent = (e) => {
@@ -57,6 +57,8 @@ const Home = () => {
     const activity = e.target.value;
     if (activity) {
       dispatch(filterByActivity(activity));
+    } else {
+      dispatch(fetchCountries());
     }
   };
 
@@ -93,6 +95,7 @@ const Home = () => {
           Select Continent:
         </label>
         <select
+          id="continentSelector"
           className={styles.selectInput}
           onChange={handleFilterByContinent}>
           <option value="">All</option>
@@ -109,7 +112,10 @@ const Home = () => {
         <label className={styles.label} htmlFor="orderSelector">
           Order Alphabetically:
         </label>
-        <select className={styles.selectInput} onChange={handleSortAlpha}>
+        <select
+          id="orderSelector"
+          className={styles.selectInput}
+          onChange={handleSortAlpha}>
           <option value="">-</option>
           <option value="A">Asc</option>
           <option value="D"> Desc</option>
@@ -119,20 +125,24 @@ const Home = () => {
         <label className={styles.label} htmlFor="populationSelector">
           Select By Population:
         </label>
-        <select className={styles.selectInput} onChange={handleSortPopulation}>
+        <select
+          id="populationSelector"
+          className={styles.selectInput}
+          onChange={handleSortPopulation}>
           <option value="">-</option>
           <option value="populationA">Asc</option>
           <option value="populationD"> Desc</option>
         </select>
       </div>
       <div className={styles.formGroup}>
-        <label className={styles.label} htmlFor="ActivitySelector">
+        <label className={styles.label} htmlFor="activitySelector">
           Select Activity:
         </label>
         <select
+          id="activitySelector"
           className={styles.selectInput}
           onChange={handleFilterByActivity}>
-          <option value="">-</option>
+          <option value="">All</option>
           {uniqueActivities.map((activity, index) => (
             <option key={index} value={activity}>
               {activity}
@@ -156,7 +166,7 @@ const Home = () => {
             Siguiente
           </button>
           <div>
-            <span className={styles.pageNumber}>Página {currentPage}</span>
+            <span className={styles.pageNumber}> {currentPage}</span>
           </div>
         </div>
       </div>

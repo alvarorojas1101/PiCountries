@@ -14,16 +14,15 @@
   width: 300px;
 }
 
-.search-bar-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
+.searchBarContainer button {
+  background-color: #0e1381;
+  color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
+  font-size: 14px;
 }
 
-.search-bar-button:hover {
+.searchBarContainer button:hover {
   background-color: #0056b3;
 }
