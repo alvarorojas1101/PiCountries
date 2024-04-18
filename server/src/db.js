@@ -38,18 +38,19 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 const { Country, Activity } = sequelize.models;
 
+//relacion muchos a muchos y tabla intermedia
 Country.belongsToMany(Activity, {
   through: "CountryActivity",
+  as: "countryActivities",
   foreignKey: "countryId",
   otherKey: "activityId",
-  as: "countryActivities",
 });
 
 Activity.belongsToMany(Country, {
   through: "CountryActivity",
+  as: "activityCountries",
   foreignKey: "activityId",
   otherKey: "countryId",
-  as: "activityCountries",
 });
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);

@@ -20,8 +20,6 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  const sortedCountries = [...state.countries];
-
   switch (action.type) {
     case SEARCH_COUNTRIES_BY_NAME:
       return {
@@ -102,6 +100,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         filteredCountries: state.countries.filter((country) =>
+          //verificamos si almenos un elemento cumple con el nombre
           country.countryActivities.some(
             (activity) => activity.name === action.payload
           )

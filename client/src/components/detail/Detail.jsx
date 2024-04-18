@@ -12,6 +12,7 @@ const Detail = () => {
   useEffect(() => {
     const fetchCountry = async () => {
       try {
+        //carga los detalles del pais con el id
         await dispatch(fetchCountriesById(id));
       } catch (error) {
         console.error("Error fetching country details:", error);

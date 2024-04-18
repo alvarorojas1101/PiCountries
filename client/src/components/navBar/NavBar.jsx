@@ -8,7 +8,7 @@ const NavBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const isHome = location.pathname === "/";
+  const isWelcome = location.pathname === "/";
   const isForm = location.pathname === "/form";
   const isDetailPage = location.pathname.includes("/detail/");
 
@@ -16,7 +16,7 @@ const NavBar = () => {
     navigate("/");
   };
 
-  if (isHome) {
+  if (isWelcome) {
     return null;
   }
 

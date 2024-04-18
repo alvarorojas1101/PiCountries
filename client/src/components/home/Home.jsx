@@ -85,7 +85,7 @@ const Home = () => {
     });
     return acc;
   }, new Set());
-  //convierte el conunto en un aeear con las actividades unicas
+  //convierte el conunto en un array con las actividades unicas
   const uniqueActivities = Array.from(allActivities);
 
   return (
