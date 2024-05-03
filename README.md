@@ -1,4 +1,4 @@
-# Proyecto de Temática de Países
+# Proyecto de Countries
 
 ¡Bienvenido al repositorio del Proyecto de Temática de Países!
 
